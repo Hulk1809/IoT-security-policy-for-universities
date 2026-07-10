@@ -169,3 +169,19 @@ python -m http.server 8000
 ```
 Sau đó truy cập địa chỉ: `http://localhost:8000` trên trình duyệt.
 
+---
+
+## 6. Tài Liệu Tham Khảo Quốc Tế (References)
+
+Dưới đây là các tài liệu tiêu chuẩn và khung bảo mật quốc tế được sử dụng làm cơ sở khoa học để thiết kế chính sách bảo mật IoT này:
+
+1. **NIST SP 800-213 (National Institute of Standards and Technology)**: Hướng dẫn an ninh mạng thiết bị IoT dành cho các tổ chức và doanh nghiệp.
+   * *Đường dẫn chính thức*: [NIST SP 800-213 Publication](https://csrc.nist.gov/publications/detail/sp/800-213/final)
+2. **ISO/IEC 27400:2022 (International Organization for Standardization)**: Tiêu chuẩn quốc tế về an ninh mạng và bảo vệ quyền riêng tư trong hệ thống IoT.
+   * *Đường dẫn chính thức*: [ISO/IEC 27400 Specification](https://www.iso.org/standard/74205.html)
+3. **OWASP Internet of Things Project**: Dự án của tổ chức bảo mật ứng dụng thế giới về nhận diện và giảm thiểu 10 lỗ hổng IoT phổ biến nhất.
+   * *Đường dẫn chính thức*: [OWASP IoT Project Home](https://owasp.org/www-project-internet-of-things/)
+4. **FIRST CVSS v3.1 (Common Vulnerability Scoring System)**: Tài liệu đặc tả và công cụ tính điểm mức độ nghiêm trọng của lỗ hổng bảo mật.
+   * *Đường dẫn chính thức*: [CVSS v3.1 Specification](https://www.first.org/cvss/v3.1/specification-document)
+
+
