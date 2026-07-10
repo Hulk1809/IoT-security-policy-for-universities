@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Giám Sát An Ninh IoT - Trường Đại Học</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="glass-bg"></div>
+    <div class="app-container">
+        
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo-area">
+                <div class="logo-pulse"></div>
+                <div class="logo-text">
+                    <h1>CAMPUS-SECURE IoT</h1>
+                    <p>Hệ thống Giám sát & Quản lý Bảo mật Thiết bị IoT Đại học</p>
+                </div>
+            </div>
+            <div class="user-meta">
+                <span class="badge badge-admin">Quản trị viên: Hulk1809</span>
+                <span class="system-time" id="system-time">00:00:00 - 11/07/2026</span>
+            </div>
+        </header>
+
+        <!-- Main Dashboard Statistics -->
+        <section class="stats-grid">
+            <div class="stat-card" id="card-total">
+                <div class="stat-icon">📡</div>
+                <div class="stat-content">
+                    <h3>Tổng Thiết Bị</h3>
+                    <p class="stat-value" id="val-total">0</p>
+                </div>
+            </div>
+            <div class="stat-card" id="card-secure">
+                <div class="stat-icon secure-glow">🛡️</div>
+                <div class="stat-content">
+                    <h3>An Toàn</h3>
+                    <p class="stat-value text-secure" id="val-secure">0</p>
+                </div>
+            </div>
+            <div class="stat-card" id="card-warning">
+                <div class="stat-icon warning-glow">⚠️</div>
+                <div class="stat-content">
+                    <h3>Cảnh Báo</h3>
+                    <p class="stat-value text-warning" id="val-warning">0</p>
+                </div>
+            </div>
+            <div class="stat-card" id="card-critical">
+                <div class="stat-icon critical-glow">🚨</div>
+                <div class="stat-content">
+                    <h3>Nguy Hiểm</h3>
+                    <p class="stat-value text-critical" id="val-critical">0</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Workspace Area -->
+        <main class="dashboard-body">
+            
+            <!-- Left Column: Inventory & Scanner -->
+            <div class="dashboard-col col-left">
+                
+                <!-- Section: Device Inventory -->
+                <div class="card inventory-card">
+                    <div class="card-header">
+                        <h2>📋 Danh Sách Thiết Bị Đang Hoạt Động (VLANs)</h2>
+                        <div class="filter-buttons">
+                            <button class="filter-btn active" data-filter="all">Tất cả</button>
+                            <button class="filter-btn" data-filter="vlan10">VLAN 10 (Cơ sở)</button>
+                            <button class="filter-btn" data-filter="vlan20">VLAN 20 (Học tập)</button>
+                            <button class="filter-btn" data-filter="vlan30">VLAN 30 (An ninh)</button>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table id="device-table">
+                            <thead>
+                                <tr>
+                                    <th>Thiết bị</th>
+                                    <th>Phân Vùng</th>
+                                    <th>Địa chỉ IP</th>
+                                    <th>Trạng Thái Mạng</th>
+                                    <th>Bảo Mật</th>
+                                    <th>Hành Động</th>
+                                </tr>
+                            </thead>
+                            <tbody id="device-list">
+                                <!-- Dynamic device items inserted by app.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Section: Security Scanner -->
+                <div class="card scanner-card">
+                    <div class="card-header">
+                        <h2>🔍 Quét Lỗ Hổng Bảo Mật Giả Lập (Security Audit Tool)</h2>
+                        <button id="btn-scan" class="btn btn-primary">Khởi Chạy Quét Mạng</button>
+                    </div>
+                    
+                    <div class="scanner-status-area">
+                        <div class="progress-bar-container" id="scan-progress-container" style="display: none;">
+                            <div class="progress-info">
+                                <span id="scan-status-text">Đang quét cổng dịch vụ...</span>
+                                <span id="scan-percent">0%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="scan-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="scan-results-container" id="scan-results-area">
+                        <div class="empty-state" id="scan-empty-state">
+                            <p>Nhấp "Khởi Chạy Quét Mạng" để rà quét các lỗ hổng (STRIDE/OWASP/CVSS) trên thiết bị IoT.</p>
+                        </div>
+                        <div class="vulnerabilities-list" id="vulnerabilities-list" style="display: none;">
+                            <!-- Vulnerability list items inserted by app.js -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Live Event Console & Threat Reference -->
+            <div class="dashboard-col col-right">
+                
+                <!-- Section: Live Incident Response console -->
+                <div class="card console-card">
+                    <div class="card-header">
+                        <h2>⚡ Nhật Ký Phát Hiện Tấn Công Thời Gian Thực (Live Log Console)</h2>
+                        <button id="btn-trigger-threat" class="btn btn-secondary">Simulate Hack Event</button>
+                    </div>
+                    <div class="console-body" id="console-logs">
+                        <!-- Live log entries added by app.js -->
+                    </div>
+                </div>
+
+                <!-- Section: Threat Metric Reference -->
+                <div class="card reference-card">
+                    <div class="card-header">
+                        <h2>📊 Ma Trận Mối Đe Dọa (STRIDE Reference)</h2>
+                    </div>
+                    <div class="stride-reference-list">
+                        <div class="stride-item">
+                            <div class="stride-badge s-spoofing">S</div>
+                            <div class="stride-desc">
+                                <strong>Spoofing (Giả mạo)</strong>: Giả danh thiết bị đầu cuối hợp lệ (ví dụ: nhân bản thẻ RFID).
+                            </div>
+                        </div>
+                        <div class="stride-item">
+                            <div class="stride-badge s-tampering">T</div>
+                            <div class="stride-desc">
+                                <strong>Tampering (Can thiệp)</strong>: Thay đổi dữ liệu truyền hoặc can thiệp vật lý (cổng USB/Console).
+                            </div>
+                        </div>
+                        <div class="stride-item">
+                            <div class="stride-badge s-repudiation">R</div>
+                            <div class="stride-desc">
+                                <strong>Repudiation (Chối bỏ)</strong>: Thực hiện hành vi xấu nhưng xóa log để chối bỏ trách nhiệm.
+                            </div>
+                        </div>
+                        <div class="stride-item">
+                            <div class="stride-badge s-info">I</div>
+                            <div class="stride-desc">
+                                <strong>Information Disclosure (Lộ thông tin)</strong>: Rò rỉ video camera hoặc dữ liệu cá nhân sinh viên.
+                            </div>
+                        </div>
+                        <div class="stride-item">
+                            <div class="stride-badge s-dos">D</div>
+                            <div class="stride-desc">
+                                <strong>Denial of Service (Từ chối dịch vụ)</strong>: DDoS thiết bị IoT làm gián đoạn vận hành trường học.
+                            </div>
+                        </div>
+                        <div class="stride-item">
+                            <div class="stride-badge s-privilege">E</div>
+                            <div class="stride-desc">
+                                <strong>Elevation of Privilege (Leo thang đặc quyền)</strong>: Hack firmware gateway để chiếm quyền Root.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+        
+        <!-- App Footer -->
+        <footer class="app-footer">
+            <p>© 2026 - Đề tài: Thiết kế Chính sách Bảo mật IoT cho Trường Đại học</p>
+            <p>Hulk1809 | voquocthang18092005@gmail.com | Đã triển khai thành công lên Repo GitHub</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

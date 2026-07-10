@@ -148,3 +148,24 @@ flowchart TB
 1. 📂 **[Phân Tích Mối Đe Dọa (STRIDE / OWASP / CVSS)](file:///d:/231A011150_VoQuocThang/threat_modeling.md)**: Đánh giá chi tiết các mối đe dọa an ninh thông tin đối với hệ thống IoT.
 2. 📂 **[Bảng Tài Sản - Rủi Ro - Biện Pháp](file:///d:/231A011150_VoQuocThang/risk_mitigation_matrix.md)**: Bản đồ liên kết các tài sản với nguy cơ mất an toàn thông tin và phương án phòng ngừa cụ thể.
 3. 📂 **[Checklist Kiểm Tra Bảo Mật IoT](file:///d:/231A011150_VoQuocThang/security_checklist.md)**: Danh sách kiểm tra thực tế (Checklist) dành cho quản trị viên khi triển khai và vận hành thiết bị IoT mới.
+
+---
+
+## 5. Hướng Dẫn Vận Hành Web Dashboard Giám Sát An Ninh IoT
+
+Chúng tôi đã xây dựng một giao diện **Web Dashboard** tương tác trực quan để minh họa các cơ chế bảo vệ an ninh IoT trong môi trường đại học.
+
+### Các Tính Năng Đang Hoạt Động Trên Web Dashboard:
+- **Thống kê thời gian thực**: Tổng số thiết bị, số lượng thiết bị An toàn, Cảnh báo (Firmware cũ, giao thức HTTP), và Nguy hiểm (Mật khẩu mặc định).
+- **Bộ quét lỗ hổng giả lập (Security Audit Scanner)**: Chạy tiến trình quét mô phỏng mạng để phát hiện lỗi bảo mật và đưa ra điểm số **CVSS v3.1** cùng phân loại **STRIDE/OWASP** cụ thể.
+- **Bảng Nhật Ký Phát Hiện Tấn Công (Live Log Console)**: Hiển thị dòng sự kiện bảo mật chạy liên tục trên mạng trường học.
+- **Mô phỏng tấn công mạng (Simulate Hack Event)**: Bấm nút để tiêm (inject) sự kiện tấn công brute-force vào Camera IP.
+- **Cô lập bảo mật mạng (Network Isolation)**: Bấm nút cô lập thiết bị để ngắt kết nối mạng của thiết bị bị nhiễm độc ngay tại switch, giúp giảm thiểu rủi ro lan truyền mã độc.
+
+### Cách Khởi Chạy:
+Bạn chỉ cần mở trực tiếp tệp **`index.html`** bằng bất kỳ trình duyệt web nào (Google Chrome, Microsoft Edge, Mozilla Firefox) hoặc chạy thông qua một máy chủ cục bộ bằng cách gõ lệnh sau trong thư mục dự án:
+```bash
+python -m http.server 8000
+```
+Sau đó truy cập địa chỉ: `http://localhost:8000` trên trình duyệt.
+
