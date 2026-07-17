@@ -148,6 +148,7 @@ flowchart TB
 1. 📂 **[Phân Tích Mối Đe Dọa (STRIDE / OWASP / CVSS)](file:///d:/231A011150_VoQuocThang/threat_modeling.md)**: Đánh giá chi tiết các mối đe dọa an ninh thông tin đối với hệ thống IoT.
 2. 📂 **[Bảng Tài Sản - Rủi Ro - Biện Pháp](file:///d:/231A011150_VoQuocThang/risk_mitigation_matrix.md)**: Bản đồ liên kết các tài sản với nguy cơ mất an toàn thông tin và phương án phòng ngừa cụ thể.
 3. 📂 **[Checklist Kiểm Tra Bảo Mật IoT](file:///d:/231A011150_VoQuocThang/security_checklist.md)**: Danh sách kiểm tra thực tế (Checklist) dành cho quản trị viên khi triển khai và vận hành thiết bị IoT mới.
+4. 📂 **[Đánh Giá Rủi Ro & Minh Chứng Kiểm Tra](file:///d:/231A011150_VoQuocThang/risk_assessment_and_testing.md)**: Ma trận định lượng mức độ rủi ro, thời hạn ưu tiên xử lý khắc phục và các kịch bản kiểm thử bảo mật trực quan.
 
 ---
 
