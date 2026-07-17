@@ -209,3 +209,61 @@ Dưới đây là định nghĩa và vai trò thực tế của các khái niệ
 #### 2.2.5. Phân vùng mạng và Cô lập mạng (Network Segmentation & Isolation)
 *   **Phân vùng mạng (Network Segmentation)**: Kỹ thuật phân chia một mạng vật lý thành các mạng logic nhỏ độc lập (VLANs). Đề tài chia mạng trường đại học thành các VLAN 10, 20, 30 tách biệt để giới hạn phạm vi tấn công ngang (Lateral movement).
 *   **Cô lập mạng khẩn cấp (Emergency Network Isolation)**: Hành động ngắt kết nối mạng tạm thời của một thiết bị bị nhiễm độc ngay tại Switch quản lý mạng (thay đổi trạng thái cổng switch sang Disable). Tính năng này được lập trình trực quan trên Web Dashboard như một chốt chặn phản ứng nhanh khi có sự cố.
+
+---
+
+### 2.4. Chuẩn, công cụ và nguồn GitHub chính
+
+Để thực hiện đề tài này, chúng tôi đã tham khảo và sử dụng các chuẩn bảo mật quốc tế cùng các thư viện công cụ mã nguồn mở trên GitHub sau:
+
+*   **GitHub Pages (Công cụ Hosting dự án)**:
+    *   *URL/Phiên bản*: `https://pages.github.com/` (Phiên bản v2.0)
+    *   *Phần đã sử dụng*: Sử dụng dịch vụ hosting tĩnh của GitHub để triển khai trực tuyến giao diện Web Dashboard Giám sát bảo mật IoT của đề tài, cho phép chạy thử nghiệm và tương tác các tính năng thông qua internet.
+    *   *Ngày truy cập*: 17/07/2026.
+*   **Mermaid.js (Thư viện vẽ sơ đồ mã nguồn mở)**:
+    *   *URL/Phiên bản*: `https://github.com/mermaid-js/mermaid` (Phiên bản v10.9)
+    *   *Phần đã sử dụng*: Sử dụng cú pháp và thư viện render Mermaid để vẽ sơ đồ ngữ cảnh (DFD Cấp 0) và sơ đồ luồng dữ liệu chi tiết (DFD Cấp 1) hiển thị tự động trên trang tài liệu README của kho chứa GitHub.
+    *   *Ngày truy cập*: 11/07/2026.
+*   **Tiêu chuẩn NIST SP 800-213 (Khung bảo mật chuẩn)**:
+    *   *URL/Phiên bản*: `https://csrc.nist.gov/publications/detail/sp/800-213/final` (NIST SP 800-213)
+    *   *Phần đã sử dụng*: Tham chiếu làm cơ sở khoa học để xây dựng bộ cẩm nang kiểm tra bảo mật (Checklist) 4 giai đoạn cho quản trị viên mạng và thiết lập các biện pháp kỹ thuật hardening thiết bị IoT đầu cuối.
+    *   *Ngày truy cập*: 17/07/2026.
+*   **Công cụ tính điểm lỗ hổng bảo mật FIRST CVSS v3.1**:
+    *   *URL/Phiên bản*: `https://www.first.org/cvss/calculator/3.1` (CVSS v3.1)
+    *   *Phần đã sử dụng*: Tham chiếu thuật toán và các trọng số tác động (Attack Vector, Attack Complexity, Privileges Required...) để lập trình bộ quét lỗ hổng mạng giả lập trên Dashboard tự động tính điểm CVSS v3.1 cho các lỗi bảo mật phát hiện được.
+    *   *Ngày truy cập*: 17/07/2026.
+*   **Vanilla CSS Grid & Glassmorphism UI (Thiết kế giao diện)**:
+    *   *URL/Phiên bản*: Tiêu chuẩn HTML5/CSS3
+    *   *Phần đã sử dụng*: Lập trình giao diện Dashboard tối hiện đại, hiệu ứng neon glow phản ánh trạng thái an toàn thiết bị, bố cục dạng lưới responsive linh hoạt cho các màn hình.
+    *   *Ngày truy cập*: 11/07/2026.
+
+---
+
+### 2.5. Công trình hoặc giải pháp liên quan
+
+Nhằm xác định hướng đi và tính mới của đề tài, chúng tôi đã tiến hành tìm hiểu, đánh giá các công trình nghiên cứu và giải pháp bảo mật IoT gần đây:
+
+#### 2.5.1. Công trình 1: Khung chính sách an toàn thông tin mạng IoT doanh nghiệp theo tiêu chuẩn NIST SP 800-213
+*   *Mục tiêu*: Thiết lập các tiêu chuẩn chung và quy định vận hành hành chính cho hệ thống IoT quy mô lớn.
+*   *Cách làm*: Xây dựng các văn bản quy chế bắt buộc đổi mật khẩu, kiểm toán thủ công các thiết bị định kỳ.
+*   *Ưu điểm*: Độ chuẩn hóa cao, bao quát rộng, phù hợp làm khung pháp lý cho cơ quan lớn.
+*   *Hạn chế*: Mang nặng tính hành chính giấy tờ, thiếu tính tương tác trực quan và không có các công cụ tự động hóa phản ứng nhanh khi có sự cố.
+
+#### 2.5.2. Công trình 2: Hệ thống phát hiện xâm nhập mạng IoT (IoT IDS) sử dụng Snort
+*   *Mục tiêu*: Phát hiện sớm các cuộc tấn công mạng dựa trên phân tích gói tin truyền dẫn.
+*   *Cách làm*: Triển khai các máy quét lắng nghe lưu lượng mạng (packet sniffing) lắp đặt tại các nút Gateway biên.
+*   *Ưu điểm*: Phát hiện chính xác các hành vi tấn công phức tạp (như quét cổng, DDoS) nhờ hệ luật (signature) được cập nhật thường xuyên.
+*   *Hạn chế*: Đòi hỏi chi phí phần cứng cao, cấu hình phức tạp, và không hỗ trợ cơ chế cho phép quản trị viên ngắt kết nối vật lý khẩn cấp của thiết bị nhiễm độc trực tiếp tại Switch.
+
+#### 2.5.3. Sự kế thừa và tính mới của đề tài này
+*   *Tính kế thừa*: Đề tài kế thừa khung lý thuyết phân tích STRIDE của Microsoft và hệ thống định lượng điểm số CVSS của FIRST để đánh giá độ nghiêm trọng của lỗ hổng bảo mật IoT.
+*   *Tính mới (phần đề tài phát triển)*: Đề tài tích hợp cả giải pháp chính sách hành chính (Checklist 4 giai đoạn) lẫn giải pháp kỹ thuật cụ thể (Phân vùng VLAN). Điểm đặc biệt là đề tài đã lập trình hiện thực hóa một công cụ Web Dashboard mô phỏng an ninh. Công cụ này cho phép quản trị viên chạy quét tự động hiển thị trực quan các lỗ hổng theo điểm số CVSS và đặc biệt cung cấp tính năng **Cô lập mạng khẩn cấp (Network Isolation)** chỉ với 1 click để ngắt cổng Switch ngay lập tức khi phát hiện tấn công, rút ngắn tối đa thời gian phản ứng sự cố so với quy trình kiểm toán truyền thống.
+
+---
+
+### 2.6. Tiểu kết Chương 2
+
+Chương 2 đã trình bày chi tiết về kiến trúc hệ thống IoT trường đại học được tổ chức trên mô hình 3 lớp tiêu chuẩn, phân chia ranh giới tin cậy rõ ràng bằng 4 phân vùng VLAN độc lập để hạn chế tối đa nguy cơ tấn công leo thang. Đồng thời, chương này cũng đã chuẩn hóa các khái niệm bảo mật cốt lõi làm nền tảng lý thuyết (STRIDE, CVSS, CIA, Mã hóa dữ liệu, Cô lập mạng) và liệt kê các chuẩn công nghệ mở được thừa hưởng. 
+
+Thông qua việc so sánh đối chiếu với các công trình nghiên cứu hiện nay, đề tài đã khẳng định được tính cấp thiết và khoảng trống bảo mật sẽ giải quyết. Các kiến thức nền tảng vững chắc và sơ đồ thiết kế dòng dữ liệu ở Chương 2 sẽ là tiền đề kỹ thuật quan trọng để chúng tôi đi sâu vào chi tiết các giải pháp chính sách và các bước lập trình xây dựng Web Dashboard giám sát thực tế được trình bày cụ thể ở Chương 3.
+
