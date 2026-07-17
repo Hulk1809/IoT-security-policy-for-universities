@@ -130,6 +130,17 @@ document.addEventListener("DOMContentLoaded", () => {
         btnTriggerThreat.addEventListener("click", triggerMockAttack);
     }
 
+    // Thiết lập sự kiện cho các hộp kiểm tuân thủ bảo mật
+    const chkPassword = document.getElementById("chk-password");
+    const chkEncryption = document.getElementById("chk-encryption");
+    const chkFirewall = document.getElementById("chk-firewall");
+    const chkVlan = document.getElementById("chk-vlan");
+
+    if (chkPassword) chkPassword.addEventListener("change", handleChecklistChange);
+    if (chkEncryption) chkEncryption.addEventListener("change", handleChecklistChange);
+    if (chkFirewall) chkFirewall.addEventListener("change", handleChecklistChange);
+    if (chkVlan) chkVlan.addEventListener("change", handleChecklistChange);
+
     // Thêm các log hệ thống khởi tạo đầu tiên vào Console
     addConsoleLog("Hệ thống giám sát an ninh CAMPUS-SECURE khởi động thành công.", "success");
     addConsoleLog("Mạng nội bộ trường học hoạt động bình thường. 4 phân vùng VLAN đang được bảo vệ.", "info");
@@ -399,4 +410,99 @@ function triggerMockAttack() {
             addConsoleLog("Khuyến nghị IT Admin: Click nút 'Cô lập mạng' của thiết bị HW-01 ngay lập tức để ngắt kết nối vật lý!", "warning");
         }
     }, 2000);
+}
+
+// --- Xử lý Thay Đổi Bảng Kiểm Bảo Mật (Checklist) ---
+function handleChecklistChange(e) {
+    const chkId = e.target.id;
+    const isChecked = e.target.checked;
+
+    if (chkId === "chk-password") {
+        const camera = devices.find(d => d.id === "HW-01");
+        if (camera) {
+            if (isChecked) {
+                camera.security = "secure";
+                camera.cvss = 0.0;
+                camera.details = "Mật khẩu đã đổi sang cấu trúc phức tạp. Cổng Telnet (23) đã đóng.";
+                addConsoleLog("MẬT KHẨU: Đã đổi mật khẩu mặc định Camera HW-01 thành công. Loại bỏ nguy cơ Giả mạo.", "success");
+            } else {
+                camera.security = "critical";
+                camera.cvss = 9.8;
+                camera.details = "Mật khẩu mặc định chưa thay đổi (admin/admin). Mở cổng Telnet (23).";
+                addConsoleLog("MẬT KHẨU: Đặt lại camera về mặc định. Cảnh báo lỗ hổng bảo mật nghiêm trọng (CVSS 9.8)!", "danger");
+            }
+        }
+    } else if (chkId === "chk-encryption") {
+        const lock = devices.find(d => d.id === "HW-02");
+        if (lock) {
+            if (isChecked) {
+                lock.security = "secure";
+                lock.cvss = 0.0;
+                lock.details = "Đường truyền dữ liệu đã được mã hóa bằng HTTPS/TLS.";
+                addConsoleLog("MÃ HÓA: Đã mã hóa đường truyền Smart Lock HW-02 thành công (Port 443).", "success");
+            } else {
+                lock.security = "warning";
+                lock.cvss = 7.5;
+                lock.details = "Giao thức truyền HTTP không mã hóa. Nguy cơ bị tấn công phát lại (Replay).";
+                addConsoleLog("MÃ HÓA: Hủy kích hoạt mã hóa Smart Lock. Dữ liệu truyền dưới dạng plaintext!", "warning");
+            }
+        }
+    } else if (chkId === "chk-firewall") {
+        const hvac = devices.find(d => d.id === "HW-05");
+        if (hvac) {
+            if (isChecked) {
+                hvac.security = "secure";
+                hvac.cvss = 0.0;
+                hvac.details = "Firmware đã cập nhật v3.4.2. Cấu hình Whitelist IP điều khiển thành công.";
+                addConsoleLog("TƯỜNG LỬA: Đã chặn cổng Modbus TCP của HVAC, chỉ chấp nhận truy cập từ dải IP máy chủ.", "success");
+            } else {
+                hvac.security = "warning";
+                hvac.cvss = 6.5;
+                hvac.details = "Bản vá cũ lỗi thời từ năm 2024. Mở cổng dịch vụ Modbus TCP.";
+                addConsoleLog("TƯỜNG LỬA: Gỡ bỏ whitelist. HVAC mở rộng kết nối cổng 502 với mọi địa chỉ IP!", "warning");
+            }
+        }
+    } else if (chkId === "chk-vlan") {
+        if (isChecked) {
+            addConsoleLog("PHÂN VÙNG: Thiết lập phân chia 4 phân vùng VLAN thành công. Cô lập luồng dữ liệu IoT.", "success");
+        } else {
+            addConsoleLog("PHÂN VÙNG: Hủy phân vùng mạng. Thiết bị IoT đang hoạt động chung với Wi-Fi sinh viên!", "danger");
+        }
+    }
+
+    updateComplianceScore();
+    updateDashboardStats();
+    renderDevices();
+    
+    // Nếu màn hình kết quả quét đang hiển thị, render lại danh sách lỗ hổng
+    const vulnList = document.getElementById("vulnerabilities-list");
+    if (vulnList && vulnList.style.display !== "none") {
+        renderVulnerabilities();
+    }
+}
+
+function updateComplianceScore() {
+    const chkItems = document.querySelectorAll(".chk-item");
+    const pctSpan = document.getElementById("compliance-pct");
+    const fill = document.getElementById("compliance-fill");
+    
+    if (!chkItems || !pctSpan || !fill) return;
+
+    let checkedCount = 0;
+    chkItems.forEach(item => {
+        if (item.checked) checkedCount++;
+    });
+
+    const percent = Math.round((checkedCount / chkItems.length) * 100);
+    pctSpan.textContent = `${percent}%`;
+    fill.style.width = `${percent}%`;
+
+    if (percent === 100) {
+        pctSpan.style.color = "var(--color-secure)";
+        addConsoleLog("CHÚC MỪNG: Toàn bộ tiêu chuẩn bảo mật chính sách trường học đã đạt tuân thủ 100%!", "success");
+    } else if (percent >= 50) {
+        pctSpan.style.color = "var(--color-warning)";
+    } else {
+        pctSpan.style.color = "var(--color-danger)";
+    }
 }

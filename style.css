@@ -679,3 +679,24 @@ tr:hover td {
         text-align: center;
     }
 }
+
+/* --- Security Compliance Checklist Styles --- */
+.checklist-card {
+    transition: var(--transition-smooth);
+}
+.checklist-card:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+}
+.chk-container {
+    transition: var(--transition-smooth);
+}
+.chk-container:hover {
+    color: #ffffff;
+}
+.chk-item {
+    transition: var(--transition-smooth);
+}
+.chk-item:checked {
+    box-shadow: var(--glow-secure);
+}
+

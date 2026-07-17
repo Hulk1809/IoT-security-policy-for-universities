@@ -141,6 +141,45 @@
                     </div>
                 </div>
 
+                <!-- Section: Security Compliance Checklist -->
+                <div class="card checklist-card">
+                    <div class="card-header">
+                        <h2>📊 Bảng Kiểm Tuân Thủ Bảo Mật (Compliance Checklist)</h2>
+                        <span class="compliance-score" id="compliance-pct" style="font-weight: 700; font-size: 0.95rem; color: var(--color-secure);">0%</span>
+                    </div>
+                    <div class="progress-bar" style="margin-top: -0.5rem; height: 6px; background: rgba(255, 255, 255, 0.05); border-radius: 4px; overflow: hidden;">
+                        <div class="progress-fill" id="compliance-fill" style="width: 0%; height: 100%; background: var(--color-secure); box-shadow: var(--glow-secure); border-radius: 4px; transition: width 0.3s ease;"></div>
+                    </div>
+                    <div class="checklist-body">
+                        <ul class="checklist-items" style="list-style: none; display: flex; flex-direction: column; gap: 0.65rem; font-size: 0.8rem; color: var(--text-secondary);">
+                            <li style="display: flex; align-items: center;">
+                                <label class="chk-container" style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; user-select: none;">
+                                    <input type="checkbox" id="chk-password" class="chk-item" style="cursor: pointer; width: 15px; height: 15px; accent-color: var(--color-secure);">
+                                    Thay đổi mật khẩu mặc định của Camera HW-01
+                                </label>
+                            </li>
+                            <li style="display: flex; align-items: center;">
+                                <label class="chk-container" style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; user-select: none;">
+                                    <input type="checkbox" id="chk-encryption" class="chk-item" style="cursor: pointer; width: 15px; height: 15px; accent-color: var(--color-secure);">
+                                    Mã hóa luồng dữ liệu của Smart Lock HW-02 (HTTPS/TLS)
+                                </label>
+                            </li>
+                            <li style="display: flex; align-items: center;">
+                                <label class="chk-container" style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; user-select: none;">
+                                    <input type="checkbox" id="chk-firewall" class="chk-item" style="cursor: pointer; width: 15px; height: 15px; accent-color: var(--color-secure);">
+                                    Cấu hình Whitelist IP điều khiển HVAC HW-05 (Modbus)
+                                </label>
+                            </li>
+                            <li style="display: flex; align-items: center;">
+                                <label class="chk-container" style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; user-select: none;">
+                                    <input type="checkbox" id="chk-vlan" class="chk-item" style="cursor: pointer; width: 15px; height: 15px; accent-color: var(--color-secure);">
+                                    Phân chia các thiết bị vào phân vùng VLAN riêng biệt
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
                 <!-- Section: Threat Metric Reference -->
                 <div class="card reference-card">
                     <div class="card-header">
