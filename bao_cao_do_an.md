@@ -65,11 +65,22 @@ Mặc dù các trường đại học đều có chính sách an toàn thông ti
 ---
 
 ### 1.3. Mục tiêu của đề tài
+
 Để giải quyết triệt để vấn đề bảo mật IoT học đường đã phát biểu, đề tài xác định 4 mục tiêu cụ thể:
-*   **Mục tiêu 1: Thiết lập cấu trúc phân vùng mạng an toàn và sơ đồ dòng dữ liệu trực quan**: Thiết kế phân chia hệ thống mạng IoT thành 4 phân vùng VLAN độc lập (VLAN 10, 20, 30 và 99) và sơ đồ luồng dữ liệu DFD Cấp 1 kết xuất trực quan bằng mã Mermaid trong tệp `README.md`.
-*   **Mục tiêu 2: Xây dựng khung đánh giá rủi ro định lượng và mô hình hóa mối đe dọa**: Phân tích các mối đe dọa theo mô hình STRIDE, đối chiếu lỗ hổng OWASP IoT Top 10 và đặc tả kịch bản chấm điểm CVSS v3.1 lưu tại tệp `threat_modeling.md`.
-*   **Mục tiêu 3: Thiết lập bộ chính sách giảm thiểu rủi ro và cẩm nang kiểm tra bảo mật (Checklist)**: Xây dựng tệp chính sách `risk_mitigation_matrix.md` và cẩm nang hướng dẫn vận hành `security_checklist.md` gồm checklist 4 giai đoạn vòng đời thiết bị IoT dành cho quản trị viên mạng.
-*   **Mục tiêu 4: Lập trình thành công Web Dashboard mô phỏng giám sát và phản ứng sự cố khẩn cấp**: Xây dựng thành công ứng dụng web (HTML/CSS/JS) chạy thực tế tại địa chỉ local `http://localhost:8000` tích hợp quét lỗ hổng và nút bấm cô lập mạng (Network Isolation) khẩn cấp.
+*   **Mục tiêu 1: Thiết lập cấu trúc phân vùng mạng an toàn và sơ đồ dòng dữ liệu trực quan**: Thiết kế phân chia hệ thống mạng IoT thành 4 phân vùng VLAN độc lập (VLAN 10, 20, 30 và 99) và sơ đồ luồng dữ liệu DFD Cấp 1 kết xuất trực quan bằng mã Mermaid trong tệp README.md.
+*   **Mục tiêu 2: Xây dựng khung đánh giá rủi ro định lượng và mô hình hóa mối đe dọa**: Phân tích các mối đe dọa theo mô hình STRIDE, đối chiếu lỗ hổng OWASP IoT Top 10 và đặc tả kịch bản chấm điểm CVSS v3.1 lưu tại tệp threat_modeling.md.
+*   **Mục tiêu 3: Thiết lập bộ chính sách giảm thiểu rủi ro và cẩm nang kiểm tra bảo mật (Checklist)**: Xây dựng tệp chính sách risk_mitigation_matrix.md và cẩm nang hướng dẫn vận hành security_checklist.md gồm checklist 4 giai đoạn vòng đời thiết bị IoT dành cho quản trị viên mạng.
+*   **Mục tiêu 4: Lập trình thành công Web Dashboard mô phỏng giám sát và phản ứng sự cố khẩn cấp**: Xây dựng thành công ứng dụng web (HTML/CSS/JS) chạy thực tế tại địa chỉ local http://localhost:8000 tích hợp quét lỗ hổng và nút bấm cô lập mạng (Network Isolation) khẩn cấp.
+
+#### 1.3.1. Bảng đối chiếu mục tiêu và đầu ra của đề tài
+
+| Mục tiêu | Đầu ra tương ứng | Cách kiểm chứng | Chương trình bày |
+| :--- | :--- | :--- | :--- |
+| **MT-01** | Sơ đồ ngữ cảnh DFD Cấp 0, sơ đồ chi tiết DFD Cấp 1 và thiết kế cấu trúc phân vùng 4 VLAN mạng IoT trường học. | Kiểm tra trực quan cấu trúc sơ đồ dòng dữ liệu được vẽ bằng Mermaid render tự động trong tài liệu README.md của dự án. | Chương 2 (Mục 2.1) |
+| **MT-02** | Ma trận phân tích mối đe dọa STRIDE, danh sách ánh xạ lỗ hổng OWASP IoT Top 10 và 2 kịch bản chấm điểm CVSS v3.1 chi tiết. | Đối chiếu nội dung đặc tả chấm điểm trong tệp threat_modeling.md với tiêu chuẩn FIRST CVSS và xem hiển thị điểm số trên Web Dashboard. | Chương 2 (Mục 2.2) và Chương 5 |
+| **MT-03** | Tài liệu ma trận Tài sản - Rủi ro - Biện pháp giảm thiểu và bộ cẩm nang checklist an ninh 4 giai đoạn vòng đời thiết bị IoT. | Kiểm tra trực tiếp sự tồn tại và nội dung các chính sách vận hành trong tệp risk_mitigation_matrix.md và security_checklist.md. | Chương 3 và Chương 5 |
+| **MT-04** | Mã nguồn chương trình hoàn chỉnh chạy thực tế (index.html, style.css, app.js) đã được triển khai lên hosting GitHub Pages. | Truy cập trang web, thực hiện bấm nút chạy quét lỗ hổng hiển thị CVSS và click nút cô lập mạng để xác nhận thiết bị chuyển trạng thái offline. | Chương 3 và Chương 4 |
+
 
 ---
 
@@ -95,17 +106,17 @@ Mặc dù các trường đại học đều có chính sách an toàn thông ti
 ### 1.5. Sản phẩm và kết quả dự kiến
 
 #### 1.5.1. Nhóm sản phẩm tài liệu và chính sách an ninh (Policy & Documentation)
-*   **Hồ sơ Phân vùng & Luồng Dữ liệu**: Bản đặc tả kiến trúc phân chia 4 phân vùng VLAN mạng IoT và sơ đồ dòng dữ liệu DFD Cấp 1 vẽ bằng Mermaid đặt trong tệp `README.md`.
+*   **Hồ sơ Phân vùng & Luồng Dữ liệu**: Bản đặc tả kiến trúc phân chia 4 phân vùng VLAN mạng IoT và sơ đồ dòng dữ liệu DFD Cấp 1 vẽ bằng Mermaid đặt trong tệp README.md.
 *   **Hồ sơ Đánh giá Rủi ro và Mô hình đe dọa**:
-    *   Tài liệu mô hình hóa mối đe dọa STRIDE, đối chiếu OWASP IoT Top 10 và các kịch bản chấm điểm CVSS v3.1 lưu tại tệp `threat_modeling.md`.
-    *   Tài liệu ma trận rủi ro định lượng ($Risk = L \times I$) và kế hoạch hành động ưu tiên xử lý lưu tại tệp `risk_assessment_and_testing.md`.
+    *   Tài liệu mô hình hóa mối đe dọa STRIDE, đối chiếu OWASP IoT Top 10 và các kịch bản chấm điểm CVSS v3.1 lưu tại tệp threat_modeling.md.
+    *   Tài liệu ma trận rủi ro định lượng ($Risk = L \times I$) và kế hoạch hành động ưu tiên xử lý lưu tại tệp risk_assessment_and_testing.md.
 *   **Khung Chính sách & Checklist vận hành**:
-    *   Tài liệu ma trận Tài sản - Rủi ro - Biện pháp kiểm soát bảo mật lưu tại tệp `risk_mitigation_matrix.md`.
-    *   Bộ cẩm nang danh sách kiểm tra (Checklist) bảo mật 4 giai đoạn vòng đời thiết bị IoT dành cho quản trị viên mạng lưu tại tệp `security_checklist.md`.
+    *   Tài liệu ma trận Tài sản - Rủi ro - Biện pháp kiểm soát bảo mật lưu tại tệp risk_mitigation_matrix.md.
+    *   Bộ cẩm nang danh sách kiểm tra (Checklist) bảo mật 4 giai đoạn vòng đời thiết bị IoT dành cho quản trị viên mạng lưu tại tệp security_checklist.md.
 
 #### 1.5.2. Nhóm sản phẩm mã nguồn chương trình (Codebase & Simulation)
-*   **Mã nguồn giao diện Dashboard**: Tệp cấu trúc giao diện HTML (`index.html`) và tệp định dạng giao diện phong cách Glassmorphism Dark Mode (`style.css`).
-*   **Mã nguồn xử lý logic và giả lập**: Tệp Javascript (`app.js`) điều khiển các tiến trình mô phỏng rà quét lỗ hổng mạng, bộ cảnh báo xâm nhập thời gian thực và chức năng cô lập cổng switch ảo (Network Isolation).
+*   **Mã nguồn giao diện Dashboard**: Tệp cấu trúc giao diện HTML (index.html) và tệp định dạng giao diện phong cách Glassmorphism Dark Mode (style.css).
+*   **Mã nguồn xử lý logic và giả lập**: Tệp Javascript (app.js) điều khiển các tiến trình mô phỏng rà quét lỗ hổng mạng, bộ cảnh báo xâm nhập thời gian thực và chức năng cô lập cổng switch ảo (Network Isolation).
 *   **Kênh lưu trữ trực tuyến**: Repository Git cục bộ đã cấu hình thông tin định danh và repository trực tuyến trên GitHub được cấu hình sẵn môi trường hosting **GitHub Pages** chạy trực tiếp.
 
 ---
