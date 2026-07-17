@@ -103,8 +103,26 @@ Mặc dù các trường đại học đều có chính sách an toàn thông ti
     *   Tài liệu ma trận Tài sản - Rủi ro - Biện pháp kiểm soát bảo mật lưu tại tệp `risk_mitigation_matrix.md`.
     *   Bộ cẩm nang danh sách kiểm tra (Checklist) bảo mật 4 giai đoạn vòng đời thiết bị IoT dành cho quản trị viên mạng lưu tại tệp `security_checklist.md`.
 
+#### 1.5.2. Nhóm sản phẩm mã nguồn chương trình (Codebase & Simulation)
+*   **Mã nguồn giao diện Dashboard**: Tệp cấu trúc giao diện HTML (`index.html`) và tệp định dạng giao diện phong cách Glassmorphism Dark Mode (`style.css`).
+*   **Mã nguồn xử lý logic và giả lập**: Tệp Javascript (`app.js`) điều khiển các tiến trình mô phỏng rà quét lỗ hổng mạng, bộ cảnh báo xâm nhập thời gian thực và chức năng cô lập cổng switch ảo (Network Isolation).
+*   **Kênh lưu trữ trực tuyến**: Repository Git cục bộ đã cấu hình thông tin định danh và repository trực tuyến trên GitHub được cấu hình sẵn môi trường hosting **GitHub Pages** chạy trực tiếp.
+
+---
+
+### 1.6. Cấu trúc báo cáo
+
+Báo cáo nghiên cứu đề tài "Xây dựng Chính sách Bảo mật IoT cho Trường Đại Học" được tổ chức thành 6 chương với cấu trúc và vai trò cụ thể như sau:
+*   **Chương 1 (Tổng quan đề tài)**: Giới thiệu bối cảnh chuyển đổi số giáo dục, lý do chọn đề tài, phát biểu bài toán bảo mật IoT học đường, xác định mục tiêu đo lường được, phạm vi thực nghiệm an toàn và các sản phẩm dự kiến bàn giao.
+*   **Chương 2 (Thiết kế kiến trúc & Khái niệm bảo mật)**: Phân tích kiến trúc kỹ thuật hệ thống IoT 3 lớp, xây dựng sơ đồ ngữ cảnh (DFD Cấp 0) và sơ đồ luồng dữ liệu chi tiết (DFD Cấp 1) có đánh dấu ranh giới tin cậy, định nghĩa các khái niệm an toàn thông tin áp dụng, đối chiếu các nguồn công cụ mã nguồn mở và so sánh với các công trình liên quan để làm nổi bật tính mới của đề tài.
+*   **Chương 3 (Phương pháp & Thiết kế)**: Xác định phương pháp nghiên cứu xây dựng chính sách, thiết kế chi tiết mô hình kiến trúc của ứng dụng Web Dashboard, mô tả các công cụ phát triển, xây dựng các quy trình kiểm tra bảo mật (Checklist) và thiết lập tiêu chí đánh giá hiệu quả giải pháp.
+*   **Chương 4 (Triển khai & Kết quả)**: Trình bày công tác chuẩn bị tài nguyên cài đặt, phân tích cấu trúc các tệp tin sản phẩm nguồn, thiết lập kịch bản chạy thử nghiệm, hiển thị kết quả hoạt động của Web Dashboard, và thảo luận các mặt ưu điểm cùng hạn chế kỹ thuật của giải pháp.
+*   **Chương 5 (Đánh giá bảo mật)**: Tổng kết danh mục tài sản IoT, phân tích chi tiết các nguy cơ theo mô hình đe dọa STRIDE, xây dựng ma trận đánh giá rủi ro định lượng ($Risk = L \times I$), đề xuất các biện pháp giảm thiểu tương ứng và phân tích rủi ro còn lại (Residual Risk) sau khi áp dụng chính sách.
+*   **Chương 6 (Kết luận & Hướng phát triển)**: Tổng hợp các kết quả thực tiễn mà đồ án đã đạt được, thẳng thắn nhìn nhận những mặt hạn chế hiện tại và định ra hướng đi, giải pháp nâng cấp phát triển hệ thống trong tương lai.
+
 ---
 ---
+
 
 ## CHƯƠNG 2. THIẾT KẾ KIẾN TRÚC & KHÁI NIỆM BẢO MẬT
 
