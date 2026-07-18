@@ -1,5 +1,11 @@
 # BÁO CÁO ĐỒ ÁN: CHÍNH SÁCH BẢO MẬT IoT CHO TRƯỜNG ĐẠI HỌC
 
+> *Tuyên bố về việc sử dụng AI (AI Usage Disclaimer):*
+> This paper has been prepared with the assistance of AI tools Gemini for language editing and grammar checking. The authors are fully responsible for the content and conclusions of the paper.
+> (Báo cáo này đã được chuẩn bị với sự hỗ trợ của công cụ AI Gemini để hiệu đính ngôn ngữ và kiểm tra ngữ pháp. Các tác giả chịu trách nhiệm hoàn toàn về nội dung và kết luận của báo cáo).
+
+---
+
 ## CHƯƠNG 1. TỔNG QUAN ĐỀ TÀI
 
 ### 1.1. Bối cảnh và lý do chọn đề tài
