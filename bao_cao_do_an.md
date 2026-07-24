@@ -75,7 +75,7 @@ Quản trị an ninh mạng khuôn viên đại học không thể chỉ giao ph
 ## CHƯƠNG 3. PHƯƠNG PHÁP VÀ THIẾT KẾ (PHẠM VI, VAI TRÒ, TIÊU CHÍ)
 
 ### 3.1. Nhận diện tài sản IoT theo khu vực
-Hệ thống thiết bị IoT trong trường đại học được phân loại và quản lý theo 4 khu vực chức năng chính:
+Hệ thống thiết bị IoT trong trường đại học được phân loại và quản lý theo 4 khu vực chức năng chính. Việc phân chia các thiết bị này vào các Mạng cục bộ ảo (VLAN) khác nhau là chiến lược cách ly logic nhằm cô lập rủi ro, không cho phép lưu lượng mạng rác hoặc mã độc lây lan chéo.
 
 | ID Tài Sản | Tên Thiết Bị IoT | Khu Vực Lắp Đặt | Phân Vùng VLAN | Mức Độ An Ninh |
 | :--- | :--- | :--- | :--- | :--- |
@@ -86,20 +86,20 @@ Hệ thống thiết bị IoT trong trường đại học được phân loại
 | **HW-05** | Bộ điều khiển HVAC & Cảm biến | Phòng Máy chủ, Phòng Lab | VLAN 10 (Cơ sở) | Chí mạng |
 
 ### 3.2. Xác định các chủ thể và vai trò trong hệ thống
-Các chủ thể tương tác với hệ thống IoT trường đại học được phân quyền rõ ràng:
-1.  **Ban Giám hiệu**: Người phê duyệt chính sách an ninh thông tin toàn trường (Role: Approver).
-2.  **Đội ngũ IT & Quản trị mạng**: Quản lý hệ thống, cấu hình VLAN/Firewall, thực hiện rà quét lỗ hổng và cô lập thiết bị khi có sự cố (Role: Administrator).
-3.  **Nhân viên Bảo vệ & Quản lý tòa nhà**: Sử dụng giao diện màn hình để theo dõi luồng camera và nhật ký quẹt thẻ (Role: Operator/Monitor).
-4.  **Giảng viên**: Sử dụng máy điểm danh và thiết bị giảng đường trong phạm vi được cấp quyền (Role: Authorized User).
-5.  **Sinh viên & Khách vãng lai**: Chỉ truy cập mạng Wi-Fi công cộng, tuyệt đối không có quyền truy cập vào dải IP của các thiết bị IoT (Role: Restricted Guest).
+Dựa trên nguyên tắc Đặc quyền tối thiểu (Least Privilege), các chủ thể tương tác với hệ thống IoT trường đại học được phân quyền rõ ràng theo vai trò:
+1.  **Ban Giám hiệu**: Người phê duyệt chính sách an ninh thông tin toàn trường, định hướng các quyết định đầu tư an toàn mạng (Role: Approver).
+2.  **Đội ngũ IT & Quản trị mạng**: Quản lý hạ tầng, cấu hình VLAN/Firewall, thực hiện rà quét lỗ hổng định kỳ và trực tiếp cô lập thiết bị trên hệ thống khi phát hiện sự cố xâm nhập (Role: Administrator).
+3.  **Nhân viên Bảo vệ & Quản lý tòa nhà**: Sử dụng giao diện màn hình để theo dõi luồng camera và kiểm tra nhật ký quẹt thẻ thực tế tại các tòa nhà (Role: Operator/Monitor).
+4.  **Giảng viên**: Sử dụng máy điểm danh và thiết bị giảng đường trong phạm vi vật lý và thời gian được cấp quyền (Role: Authorized User).
+5.  **Sinh viên & Khách vãng lai**: Chỉ được phép truy cập không gian mạng thông qua mạng Wi-Fi công cộng hoặc mạng sinh viên (Guest/Student VLAN), tuyệt đối không có đường dẫn định tuyến (routing) truy cập vào dải IP của mạng IoT.
 
 ### 3.3. Tiêu chí đánh giá bảo mật dựa trên chuẩn OWASP IoT
-Để làm cơ sở xây dựng checklist kiểm tra, đề tài thiết lập 5 tiêu chí đánh giá an toàn cốt lõi:
-*   **Tiêu chí 1 - Quản lý Định danh & Mật khẩu**: 100% thiết bị phải đổi mật khẩu mặc định, bắt buộc dùng mật khẩu phức tạp >= 12 ký tự.
-*   **Tiêu chí 2 - Bảo mật Giao diện & Dịch vụ**: Vô hiệu hóa các dịch vụ không sử dụng (Telnet cổng 23, FTP cổng 21, UPnP).
-*   **Tiêu chí 3 - Mã hóa Truyền tải**: Bắt buộc mã hóa toàn bộ dữ liệu truyền bằng HTTPS (443), MQTTS (8883), RTSPS (554).
-*   **Tiêu chí 4 - Cách ly Mạng**: 100% thiết bị IoT nằm trong phân vùng VLAN riêng, chặn truy cập ngang từ Wi-Fi sinh viên.
-*   **Tiêu chí 5 - Quản lý Cập nhật & Nhật ký**: Thực hiện cập nhật Firmware định kỳ và chuyển tiếp Syslog về máy chủ tập trung.
+Để đáp ứng chuẩn đầu ra của đề tài và làm cơ sở xây dựng Checklist kiểm tra, đề tài thiết lập 5 tiêu chí đánh giá an toàn cốt lõi:
+*   **Tiêu chí 1 - Quản lý Định danh & Mật khẩu**: 100% thiết bị phải được thay đổi mật khẩu mặc định trước khi hòa mạng, bắt buộc sử dụng mật khẩu phức tạp (>= 12 ký tự) và quản lý tập trung.
+*   **Tiêu chí 2 - Bảo mật Giao diện & Dịch vụ**: Chủ động rà soát và vô hiệu hóa toàn bộ các giao thức/dịch vụ không sử dụng hoặc thiếu an toàn (Telnet cổng 23, FTP cổng 21, UPnP).
+*   **Tiêu chí 3 - Mã hóa Truyền tải**: Bắt buộc áp dụng mã hóa đầu cuối cho toàn bộ dữ liệu truyền tải nhạy cảm trên hệ thống mạng đại học bằng các giao thức an toàn như HTTPS (443), MQTTS (8883), RTSPS (554).
+*   **Tiêu chí 4 - Cách ly Mạng**: Đảm bảo 100% thiết bị IoT được đặt trong phân vùng VLAN riêng biệt. Áp dụng Danh sách kiểm soát truy cập (ACL) tại bộ định tuyến trung tâm để chặn đứng các kết nối ngang hàng trái phép từ VLAN của người dùng (sinh viên, giảng viên) sang mạng IoT.
+*   **Tiêu chí 5 - Quản lý Cập nhật & Nhật ký**: Có quy trình phối hợp với nhà cung cấp để cập nhật phần mềm cơ sở (Firmware) định kỳ. Cấu hình thiết bị tự động chuyển tiếp nhật ký sự kiện (Syslog) về máy chủ lưu trữ tập trung để phục vụ công tác điều tra số khi cần thiết.
 
 ---
 
