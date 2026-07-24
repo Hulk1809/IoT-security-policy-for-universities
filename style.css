@@ -700,3 +700,11 @@ tr:hover td {
     box-shadow: var(--glow-secure);
 }
 
+.code-tab-btn.active {
+    background: var(--color-primary);
+    color: #ffffff;
+    border-color: var(--color-primary);
+    box-shadow: var(--glow-primary);
+}
+
+

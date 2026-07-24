@@ -141,6 +141,22 @@ document.addEventListener("DOMContentLoaded", () => {
     if (chkFirewall) chkFirewall.addEventListener("change", handleChecklistChange);
     if (chkVlan) chkVlan.addEventListener("change", handleChecklistChange);
 
+    // Thiết lập sự kiện cho các thẻ Code Module Tab
+    const codeTabBtns = document.querySelectorAll(".code-tab-btn");
+    const codePreviewArea = document.getElementById("code-preview-content");
+    if (codeTabBtns && codePreviewArea) {
+        codeTabBtns.forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                codeTabBtns.forEach(b => b.classList.remove("active"));
+                e.target.classList.add("active");
+                const tabKey = e.target.getAttribute("data-tab");
+                if (codeSnippets[tabKey]) {
+                    codePreviewArea.textContent = codeSnippets[tabKey];
+                }
+            });
+        });
+    }
+
     // Thêm các log hệ thống khởi tạo đầu tiên vào Console
     addConsoleLog("Hệ thống giám sát an ninh CAMPUS-SECURE khởi động thành công.", "success");
     addConsoleLog("Mạng nội bộ trường học hoạt động bình thường. 4 phân vùng VLAN đang được bảo vệ.", "info");
@@ -506,3 +522,70 @@ function updateComplianceScore() {
         pctSpan.style.color = "var(--color-danger)";
     }
 }
+
+// --- Các Đoạn Mã Mẫu Bảo Mật (Security as Code Snippets) ---
+const codeSnippets = {
+    python: `# Python Audit Script (python-nmap)
+import nmap, json
+
+def run_campus_iot_audit(subnet_cidr):
+    scanner = nmap.PortScanner()
+    scanner.scan(hosts=subnet_cidr, ports='23,80,443,554,1883,502', arguments='-sV --open')
+    return json.dumps(scanner.all_hosts(), indent=4)
+
+print(run_campus_iot_audit("192.168.30.0/24"))`,
+
+    cisco: `! Cisco IOS Extended ACL (VLAN 99 IoT Isolation)
+ip access-list extended ACL_PROTECT_CAMPUS_IOT
+ permit tcp 10.0.99.0 0.0.0.255 host 10.0.100.5 eq 1883
+ permit tcp 10.0.99.0 0.0.0.255 host 10.0.100.10 eq 554
+ deny ip 10.0.99.0 0.0.0.255 10.0.10.0 0.0.0.255
+ deny ip 10.0.99.0 0.0.0.255 any
+ permit ip any any
+
+interface Vlan99
+ ip access-group ACL_PROTECT_CAMPUS_IOT in`,
+
+    mqtt: `# Eclipse Mosquitto MQTT Topic ACL
+per_listener_settings true
+allow_anonymous false
+use_identity_as_username true
+
+user admin_campus
+topic readwrite university/#
+
+user sensor_lab01
+topic write university/buildingA/lab01/telemetry
+
+user student_guest
+topic read university/public/#
+deny topic write university/#`,
+
+    snort: `# Snort IDS Rule: Detect Camera RTSP Buffer Overflow
+alert tcp $EXTERNAL_NET any -> $IOT_VLAN 554 ( \\
+    msg:"[CAMPUS-SECURE-IDS] RTSP Buffer Overflow Attack"; \\
+    flow:to_server,established; \\
+    content:"SETUP"; depth:10; \\
+    content:"User-Agent|3A|"; distance:0; \\
+    byte_test:4,>,1024,0,relative; \\
+    classtype:attempted-admin; \\
+    sid:100001; rev:1; \\
+)`,
+
+    aws: `# AWS Lambda Python Remediation Script (Boto3)
+import json, boto3
+def lambda_handler(event, context):
+    iot = boto3.client('iot')
+    device_id = event['thingName']
+    iot.detach_security_profile(securityProfileName='StandardIoTProfile', securityProfileTarget=f'arn:aws:iot:us-east-1:12345:thing/{device_id}')
+    iot.add_thing_to_thing_group(thingGroupName='QuarantineGroup', thingName=device_id)
+    return {'statusCode': 200, 'body': 'Device Isolated!'}
+
+// Cedar Policy (ABAC)
+permit (
+    principal is Campus::User::"TeachingAssistant",
+    action in [Campus::Action::"OperateRobot"],
+    resource in Campus::DeviceGroup::"RoboticsLab"
+) when { context.currentTime.hour >= 8 && context.currentTime.hour <= 17 };`
+};
+

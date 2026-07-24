@@ -125,6 +125,27 @@
                         </div>
                     </div>
                 </div>
+                <!-- Section: Security as Code Modules & Automation Scripts -->
+                <div class="card code-modules-card">
+                    <div class="card-header">
+                        <h2>⚙️ Mã Lệnh Thực Thi Bảo Mật (Security as Code Modules)</h2>
+                    </div>
+                    <div class="code-tab-buttons" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
+                        <button class="btn btn-secondary code-tab-btn active" data-tab="python">Python Audit Script</button>
+                        <button class="btn btn-secondary code-tab-btn" data-tab="cisco">Cisco IOS Extended ACL</button>
+                        <button class="btn btn-secondary code-tab-btn" data-tab="mqtt">Mosquitto MQTT ACL</button>
+                        <button class="btn btn-secondary code-tab-btn" data-tab="snort">Snort IDS Rule</button>
+                        <button class="btn btn-secondary code-tab-btn" data-tab="aws">AWS Lambda & Cedar</button>
+                    </div>
+                    <div class="code-preview-area" style="background: rgba(0, 0, 0, 0.4); border: 1px solid var(--border-glass); border-radius: 8px; padding: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #a9b7c6; max-height: 220px; overflow-y: auto; white-space: pre-wrap;" id="code-preview-content">
+# Python Audit Script (python-nmap)
+import nmap
+scanner = nmap.PortScanner()
+scanner.scan(hosts='192.168.30.0/24', ports='23,80,443,554,1883,502', arguments='-sV --open')
+for host in scanner.all_hosts():
+    print(f"IP: {host} | State: {scanner[host].state()}")
+                    </div>
+                </div>
             </div>
 
             <!-- Right Column: Live Event Console & Threat Reference -->
