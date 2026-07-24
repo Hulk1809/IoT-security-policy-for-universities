@@ -162,6 +162,8 @@ graph TD
     IoTSystem -- "5. Gửi tin nhắn cảnh báo sự cố khẩn cấp" --> Admin
 ```
 
+*Hình 2.1: Sơ đồ ngữ cảnh DFD Cấp 0 hệ thống IoT trường đại học*
+
 #### 2.1.3. Sơ đồ luồng dữ liệu chi tiết và Ranh giới tin cậy (DFD Cấp 1)
 Sơ đồ chi tiết cấp 1 thể hiện rõ các tiến trình xử lý dữ liệu và 3 Ranh giới tin cậy (Trust Boundaries) được cấu hình bằng Firewall/VLAN:
 
@@ -215,6 +217,8 @@ flowchart TB
     Attacker -.->|"Tấn công dò mật khẩu camera"| Camera
     Attacker -.->|"Tấn công giả mạo bản tin"| Gateway
 ```
+
+*Hình 2.2: Sơ đồ luồng dữ liệu chi tiết DFD Cấp 1 và các Ranh giới tin cậy (Trust Boundaries)*
 
 ---
 
