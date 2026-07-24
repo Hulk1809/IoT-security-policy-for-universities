@@ -248,6 +248,126 @@ for host in scanner.all_hosts():
 
             </div>
         </main>
+
+        <!-- Section: Governance, RACI Matrix & Risk Register (Full-Width) -->
+        <section class="governance-section" style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1.5rem;">
+            <!-- RACI Matrix Card -->
+            <div class="card raci-card">
+                <div class="card-header">
+                    <h2>📌 Ma Trận Phân Công Trách Nhiệm RACI (Chương 4.2)</h2>
+                    <div class="raci-filter-buttons" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <button class="btn btn-secondary raci-btn active" data-raci="all">Tất cả Vai trò</button>
+                        <button class="btn btn-secondary raci-btn" data-raci="admin">IT Admin (CNTT)</button>
+                        <button class="btn btn-secondary raci-btn" data-raci="ciso">CISO / Trưởng Phòng</button>
+                        <button class="btn btn-secondary raci-btn" data-raci="guard">Bảo Vệ / Quản Lý Tòa Nhà</button>
+                        <button class="btn btn-secondary raci-btn" data-raci="user">Giảng Viên / Sinh Viên</button>
+                    </div>
+                </div>
+                <div class="table-container" style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.8rem;">
+                        <thead>
+                            <tr style="border-bottom: 1px solid var(--border-glass); text-align: left;">
+                                <th style="padding: 0.75rem;">Hạng Mục Nhiệm Vụ Bảo Mật</th>
+                                <th style="padding: 0.75rem; text-align: center;">IT Admin</th>
+                                <th style="padding: 0.75rem; text-align: center;">CISO / Trưởng Phòng</th>
+                                <th style="padding: 0.75rem; text-align: center;">Bảo Vệ</th>
+                                <th style="padding: 0.75rem; text-align: center;">Giảng Viên</th>
+                                <th style="padding: 0.75rem; text-align: center;">Sinh Viên</th>
+                            </tr>
+                        </thead>
+                        <tbody id="raci-table-body">
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <td style="padding: 0.75rem; font-weight: 600;">Phê duyệt Văn bản Chính sách IoT</td>
+                                <td style="padding: 0.75rem; text-align: center;"><span class="raci-badge c">C</span></td>
+                                <td style="padding: 0.75rem; text-align: center;"><span class="raci-badge a">A</span></td>
+                                <td style="padding: 0.75rem; text-align: center;"><span class="raci-badge i">I</span></td>
+                                <td style="padding: 0.75rem; text-align: center;"><span class="raci-badge i">I</span></td>
+                                <td style="padding: 0.75rem; text-align: center;"><span class="raci-badge i">I</span></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <td style="padding: 0.75rem; font-weight: 600;">Cấu hình Phân vùng VLAN & Tường lửa</td>
+                                <td style="padding: 0.75rem; text-align: center;"><span class="raci-badge r">R</span></td>
+                                <td style="padding: 0.75rem; text-align: center;"><span class="raci-badge a">A</span></td>
+                                <td style="padding: 0.75rem; text-align: center;"><span class="raci-badge i">I</span></td>
+                                <td style="padding: 0.75rem; text-align: center;"><span class="raci-badge i">I</span></td>
+                                <td style="padding: 0.75rem; text-align: center;"><span class="raci-badge i">I</span></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <td style="padding: 0.75rem; font-weight: 600;">Thay đổi Mật khẩu & Hardening Thiết bị</td>
+                                <td style="padding: 0.75rem; text-align: center;"><span class="raci-badge r">R</span></td>
+                                <td style="padding: 0.75rem; text-align: center;"><span class="raci-badge a">A</span></td>
+                                <td style="padding: 0.75rem; text-align: center;"><span class="raci-badge i">I</span></td>
+                                <td style="padding: 0.75rem; text-align: center;"><span class="raci-badge i">I</span></td>
+                                <td style="padding: 0.75rem; text-align: center;"><span class="raci-badge i">I</span></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <td style="padding: 0.75rem; font-weight: 600;">Xem Luồng Video Camera Giám sát</td>
+                                <td style="padding: 0.75rem; text-align: center;"><span class="raci-badge c">C</span></td>
+                                <td style="padding: 0.75rem; text-align: center;"><span class="raci-badge i">I</span></td>
+                                <td style="padding: 0.75rem; text-align: center;"><span class="raci-badge r">R / A</span></td>
+                                <td style="padding: 0.75rem; text-align: center;"><span class="raci-badge i">I</span></td>
+                                <td style="padding: 0.75rem; text-align: center;"><span class="raci-badge i">I</span></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <td style="padding: 0.75rem; font-weight: 600;">Thực hiện Cô lập Mạng khi có Sự cố</td>
+                                <td style="padding: 0.75rem; text-align: center;"><span class="raci-badge r">R / A</span></td>
+                                <td style="padding: 0.75rem; text-align: center;"><span class="raci-badge i">I</span></td>
+                                <td style="padding: 0.75rem; text-align: center;"><span class="raci-badge i">I</span></td>
+                                <td style="padding: 0.75rem; text-align: center;"><span class="raci-badge i">I</span></td>
+                                <td style="padding: 0.75rem; text-align: center;"><span class="raci-badge i">I</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Risk Register Card -->
+            <div class="card risk-register-card">
+                <div class="card-header">
+                    <h2>🛡️ Sổ Đăng Ký Rủi Ro & Chủ Sở Hữu (Risk Register - Chương 6)</h2>
+                </div>
+                <div class="table-container" style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.8rem;">
+                        <thead>
+                            <tr style="border-bottom: 1px solid var(--border-glass); text-align: left;">
+                                <th style="padding: 0.75rem;">Mã Rủi Ro</th>
+                                <th style="padding: 0.75rem;">Mô Tả Mối Đe Dọa</th>
+                                <th style="padding: 0.75rem; text-align: center;">Điểm (L x I)</th>
+                                <th style="padding: 0.75rem;">Lộ Trình Ưu Tiên</th>
+                                <th style="padding: 0.75rem;">Chủ Sở Hữu Rủi Ro (Risk Owner)</th>
+                                <th style="padding: 0.75rem;">Rủi Ro Còn Lại (Residual Risk)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <td style="padding: 0.75rem; font-weight: 700; color: var(--color-critical);">RISK-01</td>
+                                <td style="padding: 0.75rem;">Chiếm quyền Camera làm Botnet tấn công DDoS</td>
+                                <td style="padding: 0.75rem; text-align: center;"><span class="vuln-badge critical">9 (Cao)</span></td>
+                                <td style="padding: 0.75rem; color: #ff5252; font-weight: 600;">Khẩn cấp (Trong 48h)</td>
+                                <td style="padding: 0.75rem;">Trưởng Phòng CNTT (CISO)</td>
+                                <td style="padding: 0.75rem; color: var(--color-secure);">Thấp (Giám sát Snort IDS)</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <td style="padding: 0.75rem; font-weight: 700; color: var(--color-warning);">RISK-02</td>
+                                <td style="padding: 0.75rem;">Nghe lén dữ liệu điểm danh sinh trắc học (HTTP)</td>
+                                <td style="padding: 0.75rem; text-align: center;"><span class="vuln-badge warning">6 (Trung bình)</span></td>
+                                <td style="padding: 0.75rem; color: #ffb142; font-weight: 600;">Ngắn hạn (1-2 tuần)</td>
+                                <td style="padding: 0.75rem;">Kỹ thuật viên Mạng IT</td>
+                                <td style="padding: 0.75rem; color: var(--color-secure);">Thấp (Bật HTTPS/TLS)</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <td style="padding: 0.75rem; font-weight: 700; color: var(--color-warning);">RISK-03</td>
+                                <td style="padding: 0.75rem;">Tấn công Modbus thay đổi nhiệt độ HVAC Server</td>
+                                <td style="padding: 0.75rem; text-align: center;"><span class="vuln-badge warning">6 (Trung bình)</span></td>
+                                <td style="padding: 0.75rem; color: #ffb142; font-weight: 600;">Ngắn hạn (1-2 tuần)</td>
+                                <td style="padding: 0.75rem;">Trưởng Quản lý Tòa nhà</td>
+                                <td style="padding: 0.75rem; color: var(--color-secure);">Thấp (Whitelist IP ACL)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
         
         <!-- App Footer -->
         <footer class="app-footer">

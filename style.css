@@ -707,4 +707,25 @@ tr:hover td {
     box-shadow: var(--glow-primary);
 }
 
+/* --- RACI Matrix Badge Styles --- */
+.raci-badge {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: #ffffff;
+}
+.raci-badge.r { background: rgba(255, 82, 82, 0.25); color: #ff5252; border: 1px solid rgba(255, 82, 82, 0.4); }
+.raci-badge.a { background: rgba(255, 177, 66, 0.25); color: #ffb142; border: 1px solid rgba(255, 177, 66, 0.4); }
+.raci-badge.c { background: rgba(46, 213, 115, 0.25); color: #2ed573; border: 1px solid rgba(46, 213, 115, 0.4); }
+.raci-badge.i { background: rgba(30, 144, 255, 0.25); color: #1e90ff; border: 1px solid rgba(30, 144, 255, 0.4); }
+
+.raci-btn.active {
+    background: var(--color-primary);
+    color: #ffffff;
+    border-color: var(--color-primary);
+}
+
+
 

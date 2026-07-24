@@ -157,6 +157,19 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Thiết lập sự kiện cho các nút lọc Ma Trận RACI
+    const raciBtns = document.querySelectorAll(".raci-btn");
+    if (raciBtns) {
+        raciBtns.forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                raciBtns.forEach(b => b.classList.remove("active"));
+                e.target.classList.add("active");
+                const role = e.target.getAttribute("data-raci");
+                addConsoleLog(`RACI FILTER: Đã bôi sáng phân quyền trách nhiệm cho vai trò [${role.toUpperCase()}].`, "info");
+            });
+        });
+    }
+
     // Thêm các log hệ thống khởi tạo đầu tiên vào Console
     addConsoleLog("Hệ thống giám sát an ninh CAMPUS-SECURE khởi động thành công.", "success");
     addConsoleLog("Mạng nội bộ trường học hoạt động bình thường. 4 phân vùng VLAN đang được bảo vệ.", "info");
