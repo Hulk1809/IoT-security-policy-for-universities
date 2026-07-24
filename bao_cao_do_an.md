@@ -20,6 +20,25 @@
 
 ---
 
+## LỜI CẢM ƠN
+
+Để hoàn thành báo cáo đồ án môn học **"Bảo mật IoT"** với đề tài **"Chính sách Bảo mật IoT cho Trường Đại học"**, em xin bày tỏ lòng biết ơn sâu sắc và chân thành nhất đến những cá nhân và tập thể đã luôn hỗ trợ, tận tình hướng dẫn em trong suốt quá trình học tập và nghiên cứu.
+
+Trước hết, em xin gửi lời cảm ơn trân trọng nhất đến **Ban Giám hiệu Trường Đại học Văn Hiến** cùng toàn thể quý **Thầy/Cô trong Khoa Công nghệ Thông tin**. Nhà trường đã tạo ra một môi trường học tập hiện đại, văn minh, cung cấp đầy đủ các trang thiết bị và cơ sở vật chất kỹ thuật cần thiết, tạo điều kiện thuận lợi nhất để em được học tập, tiếp cận kiến thức công nghệ mới và phát triển bản thân.
+
+Đặc biệt, em xin gửi lời tri ân sâu sắc nhất đến **Thầy Hồ Nhựt Minh** - Giảng viên trực tiếp giảng dạy môn học Bảo mật IoT (Mã học phần: 253INT441001). Trong suốt quá trình học tập và thực hiện đề tài, Thầy đã luôn tận tụy truyền đạt những kiến thức chuyên môn vững chắc, định hướng tư duy khoa học và đưa ra những lời khuyên, sự chỉ dẫn vô cùng quý báu. Những định hướng sát sao của Thầy không chỉ giúp em tháo gỡ những khó khăn kỹ thuật trong quá trình làm bài mà còn giúp em hoàn thiện tư duy về quản trị an toàn thông tin theo chuẩn thực tế.
+
+Dù đã nỗ lực hết sức để hoàn thành đồ án một cách chỉn chu và toàn diện nhất, song do hạn chế về mặt thời gian và kinh nghiệm thực tiễn, báo cáo không tránh khỏi những thiếu sót nhất định. Em rất mong nhận được những ý kiến đóng góp, nhận xét và phê bình quý báu từ Thầy Hồ Nhựt Minh cũng như Quý Thầy/Cô để bài báo cáo của em được hoàn thiện hơn, đồng thời giúp em tích lũy thêm nhiều kinh nghiệm thực tế cho hành trình học tập và phát triển nghề nghiệp sau này.
+
+Em xin kính chúc **Thầy Hồ Nhựt Minh** cùng **Quý Thầy/Cô Trường Đại học Văn Hiến** luôn dồi dào sức khỏe, hạnh phúc và gặt hái được nhiều thành công hơn nữa trong sự nghiệp cao quý "trồng người"!
+
+*Em xin chân thành cảm ơn!*
+
+**Sinh viên thực hiện:**  
+*Võ Quốc Thắng (MSSV: 231A011150)*
+
+---
+
 ## LÝ DO CHỌN ĐỀ TÀI
 
 ### **Đề tài: "Xây dựng Chính sách Bảo mật IoT cho Trường Đại Học"**
