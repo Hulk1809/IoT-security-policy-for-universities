@@ -1,8 +1,48 @@
-# BÁO CÁO ĐỒ ÁN: CHÍNH SÁCH BẢO MẬT IoT CHO TRƯỜNG ĐẠI HỌC
+# BỘ GIÁO DỤC VÀ ĐÀO TẠO
+# TRƯỜNG ĐẠI HỌC VĂN HIẾN
+
+---
+
+### **BÁO CÁO ĐỒ ÁN MÔN HỌC: BẢO MẬT IoT**
+## **TÊN ĐỀ TÀI: CHÍNH SÁCH BẢO MẬT IoT CHO TRƯỜNG ĐẠI HỌC**
+
+*   **Giảng viên giảng dạy**: Hồ Nhựt Minh
+*   **Lớp học phần**: 253INT441001
+*   **Sinh viên thực hiện**: Võ Quốc Thắng
+*   **Mã số sinh viên**: 231A011150
+*   **Địa điểm - Thời gian**: TP. Hồ Chí Minh – 2026
+
+---
 
 > *Tuyên bố về việc sử dụng AI (AI Usage Disclaimer):*
 > This paper has been prepared with the assistance of AI tools Gemini for language editing and grammar checking. The authors are fully responsible for the content and conclusions of the paper.
 > (Báo cáo này đã được chuẩn bị với sự hỗ trợ của công cụ AI Gemini để hiệu đính ngôn ngữ và kiểm tra ngữ pháp. Các tác giả chịu trách nhiệm hoàn toàn về nội dung và kết luận của báo cáo).
+
+---
+
+## LÝ DO CHỌN ĐỀ TÀI
+
+### **Đề tài: "Xây dựng Chính sách Bảo mật IoT cho Trường Đại Học"**
+
+Trong kỷ nguyên chuyển đổi số giáo dục, việc xây dựng mô hình **“Smart Campus” (Khuôn viên thông minh)** đang trở thành xu hướng tất yếu của các trường đại học tại Việt Nam và trên thế giới. Tuy nhiên, đi kèm với sự tiện ích là những thách thức bảo mật vô cùng lớn. Dưới đây là 4 lý do cốt lõi để lựa chọn đề tài này:
+
+#### **1. Sự bùng nổ của thiết bị IoT và xu hướng xây dựng giảng đường thông minh**
+Các trường đại học hiện nay đang tích hợp sâu rộng các thiết bị IoT vào công tác quản lý và giảng dạy, bao gồm: hệ thống camera giám sát an ninh (CCTV), hệ thống kiểm soát ra vào bằng thẻ từ/khóa thông minh (Smart Lock), bộ điều hòa không khí tự động (HVAC), thiết bị phòng Lab nghiên cứu và các thiết bị trình chiếu thông minh. Sự gia tăng nhanh chóng về mặt số lượng của các thiết bị này tạo ra một hệ sinh thái kết nối phức tạp, nhưng cũng đồng thời làm tăng **bề mặt tấn công (Attack Surface)** của mạng nội bộ nhà trường.
+
+#### **2. Đặc thù mạng nội bộ trường đại học có tính mở cao và phức tạp**
+Khác với mạng của doanh nghiệp hay ngân hàng (vốn được kiểm soát rất nghiêm ngặt), mạng trường đại học có tính mở cực kỳ cao nhằm phục vụ nhu cầu học tập, tra cứu của hàng chục nghìn sinh viên, giảng viên, nghiên cứu sinh và khách vãng lai. Việc sử dụng chung hạ tầng mạng không dây (Wi-Fi) và thói quen sử dụng thiết bị cá nhân (BYOD) của sinh viên khiến việc kiểm soát các kết nối trở nên khó khăn. Nếu không có chính sách bảo mật IoT riêng biệt, kẻ tấn công có thể dễ dàng lợi dụng các thiết bị IoT bảo mật kém làm "bàn đạp" để xâm nhập sâu vào phân vùng chứa dữ liệu nhạy cảm của nhà trường (như cơ sở dữ liệu điểm, đề thi, thông tin cá nhân và tài chính sinh viên).
+
+#### **3. Lỗ hổng bảo mật cố hữu của các thiết bị IoT đầu cuối**
+Nhiều thiết bị IoT hiện nay được sản xuất với chi phí thấp và không được chú trọng về mặt an toàn thông tin. Các lỗ hổng phổ biến bao gồm: mật khẩu mặc định được mã hóa cứng trong phần sụn (firmware), giao thức truyền thông không mã hóa (như HTTP, Telnet, Modbus TCP), và thiếu cơ chế cập nhật bản vá bảo mật định kỳ. Trong khi đó, hầu hết các trường đại học hiện nay đều chưa có một **Quy trình chuẩn (Checklist)** hay **Chính sách phân vùng mạng (Network Segmentation Policy)** cụ thể để quản lý các thiết bị phi chuẩn này.
+
+#### **4. Hậu quả nghiêm trọng về mặt vật lý và uy tín học thuật**
+Một cuộc tấn công thành công vào hệ thống IoT của trường đại học có thể gây ra những hậu quả nhãn tiền:
+*   **Thiệt hại vật lý**: Kẻ tấn công có thể vô hiệu hóa hệ thống khóa cửa thông minh của các phòng máy chủ (Server Room), phòng thí nghiệm chuyên sâu, hoặc thay đổi nhiệt độ hệ thống điều hòa HVAC gây quá nhiệt, cháy nổ thiết bị đầu não.
+*   **Rò rỉ dữ liệu & Quyền riêng tư**: Hình ảnh từ hệ thống camera IP lắp tại các khu vực nhạy cảm bị rò rỉ ra ngoài internet, làm ảnh hưởng nghiêm trọng đến quyền riêng tư cá nhân và danh tiếng của nhà trường.
+*   **Tấn công gián tiếp (Botnet)**: Thiết bị IoT của trường bị chiếm quyền và lợi dụng để tham gia vào mạng lưới botnet tấn công từ chối dịch vụ (DDoS) quy mô lớn, làm tê liệt hệ thống đăng ký môn học hoặc cổng thông tin đào tạo trực tuyến.
+
+#### **KẾT LUẬN (Ý nghĩa thực tiễn của đề tài):**
+Đề tài **“Xây dựng Chính sách Bảo mật IoT cho Trường Đại Học”** không chỉ mang tính lý thuyết mà giải quyết trực tiếp bài toán thực tế cấp bách. Bằng việc thiết lập **Phạm vi hệ thống tách biệt (VLANs)**, xây dựng **Ma trận Rủi ro - Biện pháp giảm thiểu** dựa trên tiêu chuẩn quốc tế (NIST SP 800-213, ISO/IEC 27400) kết hợp với **Web Dashboard giám sát trực quan**, đề tài cung cấp một giải pháp toàn diện giúp đội ngũ IT của trường dễ dàng quản lý, rà quét lỗ hổng và ứng phó sự cố khẩn cấp (cô lập thiết bị bị hack), đảm bảo môi trường học tập an toàn và tin cậy.
 
 ---
 
