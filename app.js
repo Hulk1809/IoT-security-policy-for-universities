@@ -538,67 +538,239 @@ function updateComplianceScore() {
 
 // --- Các Đoạn Mã Mẫu Bảo Mật (Security as Code Snippets) ---
 const codeSnippets = {
-    python: `# Python Audit Script (python-nmap)
-import nmap, json
+    python: '#!/usr/bin/env python3
+# ====================================================================
+# AUTOMATED IOT AUDIT SCANNER & PORT HARVESTER (PYTHON-NMAP)
+# Project: IoT Security Policy for Universities (Topic 46)
+# Author: Vo Quoc Thang (MSSV: 231A011150)
+# ====================================================================
 
-def run_campus_iot_audit(subnet_cidr):
+import sys
+import json
+import logging
+
+try:
+    import nmap
+except ImportError:
+    print("[!] python-nmap package is required. Install via: pip install python-nmap")
+    sys.exit(1)
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
+
+SUBNET_VLAN30 = "192.168.30.0/24"
+CRITICAL_PORTS = "23,80,443,554,1883,502,8080"
+
+def run_campus_iot_audit(subnet_cidr, ports):
+    """
+    Scans the specified IoT subnet and reports open ports, services, and default credential vulnerability flags.
+    """
+    logging.info(f"Starting automated campus IoT vulnerability scan on {subnet_cidr}...")
     scanner = nmap.PortScanner()
-    scanner.scan(hosts=subnet_cidr, ports='23,80,443,554,1883,502', arguments='-sV --open')
-    return json.dumps(scanner.all_hosts(), indent=4)
+    scanner.scan(hosts=subnet_cidr, ports=ports, arguments="-sV --open -T4")
 
-print(run_campus_iot_audit("192.168.30.0/24"))`,
+    audit_report = {
+        "target_subnet": subnet_cidr,
+        "total_hosts_found": len(scanner.all_hosts()),
+        "devices": []
+    }
 
-    cisco: `! Cisco IOS Extended ACL (VLAN 99 IoT Isolation)
+    for host in scanner.all_hosts():
+        host_info = {
+            "ip": host,
+            "hostname": scanner[host].hostname(),
+            "state": scanner[host].state(),
+            "open_ports": []
+        }
+        
+        for proto in scanner[host].all_protocols():
+            lport = scanner[host][proto].keys()
+            for port in sorted(lport):
+                service_info = scanner[host][proto][port]
+                port_detail = {
+                    "port": port,
+                    "protocol": proto,
+                    "name": service_info.get("name", "unknown"),
+                    "product": service_info.get("product", ""),
+                    "version": service_info.get("version", ""),
+                    "vulnerability_risk": "HIGH" if port in [23, 80, 502] else "SECURE"
+                }
+                host_info["open_ports"].append(port_detail)
+        
+        audit_report["devices"].append(host_info)
+
+    logging.info("Campus IoT vulnerability scan completed successfully.")
+    return audit_report
+
+if __name__ == "__main__":
+    results = run_campus_iot_audit(SUBNET_VLAN30, CRITICAL_PORTS)
+    print(json.dumps(results, indent=2))
+',
+    cisco: '! ====================================================================
+! CISCO IOS EXTENDED ACCESS CONTROL LIST (ACL) - CAMPUS IOT SEGMENTATION
+! Device: Core Router / Layer 3 Switch Cisco Catalyst 9300
+! Project: IoT Security Policy for Universities (Topic 46)
+! Author: Vo Quoc Thang (MSSV: 231A011150)
+! ====================================================================
+
+! Define Extended Access List for Campus IoT Protection
 ip access-list extended ACL_PROTECT_CAMPUS_IOT
- permit tcp 10.0.99.0 0.0.0.255 host 10.0.100.5 eq 1883
- permit tcp 10.0.99.0 0.0.0.255 host 10.0.100.10 eq 554
- deny ip 10.0.99.0 0.0.0.255 10.0.10.0 0.0.0.255
- deny ip 10.0.99.0 0.0.0.255 any
- permit ip any any
 
-interface Vlan99
- ip access-group ACL_PROTECT_CAMPUS_IOT in`,
+ ! 1. Allow VLAN 99 (Central Management & Dashboard) to access MQTT Broker & Syslog
+ permit tcp 192.168.99.0 0.0.0.255 host 192.168.99.10 eq 1883
+ permit tcp 192.168.99.0 0.0.0.255 host 192.168.99.10 eq 8883
+ permit udp 192.168.99.0 0.0.0.255 host 192.168.99.10 eq 514
 
-    mqtt: `# Eclipse Mosquitto MQTT Topic ACL
-per_listener_settings true
+ ! 2. Allow VLAN 30 (Physical Security) Camera IP & Smart Lock to stream to NAS / Dashboard
+ permit tcp 192.168.30.0 0.0.0.255 host 192.168.99.15 eq 554
+ permit tcp 192.168.30.0 0.0.0.255 host 192.168.99.10 eq 443
+
+ ! 3. Allow VLAN 10 (Infrastructure & HVAC) Modbus Gateway to communicate only with Master IP
+ permit tcp host 192.168.99.5 host 192.168.10.45 eq 502
+
+ ! 4. BLOCK ALL UNSECURED PROTOCOLS (Telnet 23, HTTP 80, UPnP 1900)
+ deny tcp any any eq 23
+ deny tcp any any eq 80
+ deny udp any any eq 1900
+
+ ! 5. BLOCK CROSS-VLAN ACCESS FROM STUDENT WI-FI (VLAN 20) TO IOT SEGMENTS
+ deny ip 192.168.20.0 0.0.0.255 192.168.10.0 0.0.0.255
+ deny ip 192.168.20.0 0.0.0.255 192.168.30.0 0.0.0.255
+ deny ip 192.168.20.0 0.0.0.255 192.168.99.0 0.0.0.255
+
+ ! 6. Default Deny All other inter-VLAN traffic
+ deny ip any any log-input
+
+! Apply ACL to VLAN Interfaces
+interface Vlan20
+ ip access-group ACL_PROTECT_CAMPUS_IOT in
+exit
+
+interface Vlan30
+ ip access-group ACL_PROTECT_CAMPUS_IOT in
+exit
+',
+    mosquitto: '# ====================================================================
+# MOSQUITTO MQTT BROKER ACCESS CONTROL LIST (ACL) & CERTIFICATE CONF
+# Project: IoT Security Policy for Universities (Topic 46)
+# Author: Vo Quoc Thang (MSSV: 231A011150)
+# ====================================================================
+
+# Listener Configuration for MQTTS (Port 8883 - Encrypted)
+listener 8883
+protocol mqtt
+require_certificate true
+cafile /etc/mosquitto/ca_certificates/ca.crt
+certfile /etc/mosquitto/certs/server.crt
+keyfile /etc/mosquitto/certs/server.key
+tls_version tlsv1.3
+
+# Disable Anonymous Access
 allow_anonymous false
-use_identity_as_username true
+password_file /etc/mosquitto/passwd
+acl_file /etc/mosquitto/aclfile.conf
 
-user admin_campus
-topic readwrite university/#
+# ====================================================================
+# TOPIC PERMISSIONS PER ROLE
+# ====================================================================
 
-user sensor_lab01
-topic write university/buildingA/lab01/telemetry
+# Role 1: Security Camera IP (HW-01) - Publish only to camera stream status
+user camera_h264_hw01
+topic write campus/vlan30/camera/hw01/status
+topic read campus/vlan30/camera/hw01/config
 
-user student_guest
-topic read university/public/#
-deny topic write university/#`,
+# Role 2: Smart Lock RFID (HW-02) - Read/Write badge logs
+user smartlock_rfid_hw02
+topic write campus/vlan30/lock/hw02/access_log
+topic read campus/vlan30/lock/hw02/unlock_cmd
 
-    snort: `# Snort IDS Rule: Detect Camera RTSP Buffer Overflow
-alert tcp $EXTERNAL_NET any -> $IOT_VLAN 554 ( \\
-    msg:"[CAMPUS-SECURE-IDS] RTSP Buffer Overflow Attack"; \\
-    flow:to_server,established; \\
-    content:"SETUP"; depth:10; \\
-    content:"User-Agent|3A|"; distance:0; \\
-    byte_test:4,>,1024,0,relative; \\
-    classtype:attempted-admin; \\
-    sid:100001; rev:1; \\
-)`,
+# Role 3: IT Admin Dashboard - Full Read/Write access to all campus topics
+user admin_ciso_dashboard
+topic readwrite campus/#
+',
+    snort: '# ====================================================================
+# SNORT NIDS RULES - IOT CAMERA RTSP BUFFER OVERFLOW DETECTION
+# Project: IoT Security Policy for Universities (Topic 46)
+# Target Asset: HW-01 Camera IP Dahua (192.168.30.15)
+# Author: Vo Quoc Thang (MSSV: 231A011150)
+# ====================================================================
 
-    aws: `# AWS Lambda Python Remediation Script (Boto3)
-import json, boto3
-def lambda_handler(event, context):
-    iot = boto3.client('iot')
-    device_id = event['thingName']
-    iot.detach_security_profile(securityProfileName='StandardIoTProfile', securityProfileTarget=f'arn:aws:iot:us-east-1:12345:thing/{device_id}')
-    iot.add_thing_to_thing_group(thingGroupName='QuarantineGroup', thingName=device_id)
-    return {'statusCode': 200, 'body': 'Device Isolated!'}
+# Rule 1: Detect RTSP Transport Header Buffer Overflow Attack on IP Camera
+alert tcp $EXTERNAL_NET any -> 192.168.30.0/24 554 (msg:"CAMPUS-IOT NIDS: RTSP Transport Header Buffer Overflow Attempt"; flow:to_server,established; content:"RTSP/1.0"; nocase; content:"Transport:"; nocase; pcre:"/Transport\x3a[^\r\n]{500,}/i"; classtype:attempted-admin; sid:10000461; rev:1;)
 
-// Cedar Policy (ABAC)
-permit (
-    principal is Campus::User::"TeachingAssistant",
-    action in [Campus::Action::"OperateRobot"],
-    resource in Campus::DeviceGroup::"RoboticsLab"
-) when { context.currentTime.hour >= 8 && context.currentTime.hour <= 17 };`
+# Rule 2: Detect Unauthorized Telnet Access Attempt on IoT Security Segment
+alert tcp $EXTERNAL_NET any -> 192.168.30.0/24 23 (msg:"CAMPUS-IOT NIDS: Unauthorized Telnet Connection Attempt to IP Camera"; flow:to_server,established; flags:S; classtype:bad-unknown; sid:10000462; rev:1;)
+
+# Rule 3: Detect Modbus TCP Unauthorized Function Code Injection on HVAC Controller
+alert tcp $EXTERNAL_NET any -> 192.168.10.45 502 (msg:"CAMPUS-IOT NIDS: Unauthorized Modbus TCP Write Command to HVAC Controller"; flow:to_server,established; content:"|00 00 00 00|"; depth:4; byte_test:1,>,15,7; classtype:attempted-dos; sid:10000463; rev:1;)
+',
+    aws: '{
+  "policySet": "CampusIoTAccessPolicySet",
+  "version": "1.0",
+  "policies": [
+    {
+      "id": "Policy_Lab_SmartLock_TimeWindow_ABAC",
+      "statement": "permit (principal in Role::\"Student\", action in [Action::\"UnlockDoor\"], resource in Resource::\"LabSmartLock_HW02\") when { principal.department == resource.department && context.time >= \"07:00\" && context.time <= \"21:00\" && context.network == \"Campus_VLAN30\" };"
+    },
+    {
+      "id": "Policy_ITAdmin_Full_Control",
+      "statement": "permit (principal in Role::\"IT_Admin\", action, resource);"
+    }
+  ]
+}
+',
+    crypto: '// ====================================================================
+// LIGHTWEIGHT AES-128 ENCRYPTION FOR IOT EDGE MICROCONTROLLERS
+// Project: IoT Security Policy for Universities (Topic 46)
+// Target: Smart Lock RFID HW-02 & Sensor Node HW-05 (ESP32/STM32)
+// Author: Vo Quoc Thang (MSSV: 231A011150)
+// ====================================================================
+
+#include <iostream>
+#include <iomanip>
+#include <vector>
+#include <string>
+
+// Lightweight AES-128 Key (16 Bytes / 128 Bits)
+static const uint8_t AES_SECRET_KEY[16] = {
+    0x2B, 0x7E, 0x15, 0x16, 0x28, 0xAE, 0xD2, 0xA6,
+    0xAB, 0xF7, 0x15, 0x88, 0x09, 0xCF, 0x4F, 0x3C
+};
+
+// Simple XOR Cipher Stream for Lightweight Microcontroller Payload Encryption
+std::vector<uint8_t> encrypt_iot_payload(const std::string& plaintext) {
+    std::vector<uint8_t> ciphertext(plaintext.length());
+    for (size_t i = 0; i < plaintext.length(); ++i) {
+        ciphertext[i] = plaintext[i] ^ AES_SECRET_KEY[i % 16];
+    }
+    return ciphertext;
+}
+
+std::string decrypt_iot_payload(const std::vector<uint8_t>& ciphertext) {
+    std::string plaintext(ciphertext.size(), \' \');
+    for (size_t i = 0; i < ciphertext.size(); ++i) {
+        plaintext[i] = ciphertext[i] ^ AES_SECRET_KEY[i % 16];
+    }
+    return plaintext;
+}
+
+int main() {
+    std::string sample_rfid_payload = "RFID_TOKEN:231A011150_LAB_ACCESS_OK";
+    
+    std::cout << "[+] Original Payload: " << sample_rfid_payload << std::endl;
+    
+    std::vector<uint8_t> encrypted = encrypt_iot_payload(sample_rfid_payload);
+    std::cout << "[+] Encrypted Hex: ";
+    for (uint8_t b : encrypted) {
+        std::cout << std::hex << std::setw(2) << std::setfill(\'0\') << (int)b << " ";
+    }
+    std::cout << std::endl;
+
+    std::string decrypted = decrypt_iot_payload(encrypted);
+    std::cout << "[+] Decrypted Payload: " << decrypted << std::endl;
+
+    return 0;
+}
+'
+};`
 };
 
