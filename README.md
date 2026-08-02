@@ -114,10 +114,27 @@ Gây thiệt hại vật lý (cháy nổ server HVAC), rò rỉ dữ liệu sinh
 | Bước | Nội Dung Công Việc | Sản Phẩm / Đầu Ra Bắt Buộc | Minh Chứng Trong Repo GitHub |
 | :---: | :--- | :--- | :--- |
 | **1** | Tiếp nhận & Đăng ký MAC/VLAN | Khai báo địa chỉ IP tĩnh & phân dải VLAN (10/20/30) | Sơ đồ Kiến trúc Mạng `README.md` |
-| **2** | Hardening Thiết bị & Đổi mật khẩu | Đổi mật khẩu phức tạp (>= 12 ký tự), đóng Telnet 23 | Script kiểm thử `python-nmap` rà quét cổng |
-| **3** | Mã hóa Đường truyền & Phân quyền | Kích hoạt HTTPS (443), MQTTS (1883), RTSPS (554) | Tệp cấu hình Mosquitto ACLs & Cisco ACL |
+| **2** | Hardening Thiết bị & Đổi mật khẩu | Đổi mật khẩu phức tạp (>= 12 ký tự), đóng Telnet 23 | Script kiểm thử `scripts/python_nmap_audit.py` |
+| **3** | Mã hóa Đường truyền & Phân quyền | Kích hoạt HTTPS (443), MQTTS (1883), RTSPS (554) | Tệp cấu hình `policies/mqtt_mosquitto_acl.conf` & `configs/cisco_acl_extended.cfg` |
 | **4** | Kiểm thử Tuân thủ & Giám sát Log | Xuất phiếu đánh giá ĐẠT, ghi log về Syslog Server | Mã nguồn Web Dashboard (`app.js`, `index.html`) |
 | **5** | Khắc phục Sự cố & Cô lập Khẩn cấp | Disable cổng Switch ảo trong < 5s khi bị hack | Nút bấm 'Cô lập mạng' & Live Console Log |
+
+---
+
+## 📦 THÀNH PHẦN SẢN PHẨM TRONG REPO GITHUB (THEO MỤC 4.2 MẪU PDF)
+
+| Đường Dẫn Tệp Trong Repo GitHub | Chức Năng & Nội Dung Sản Phẩm | Loại Sản Phẩm |
+| :--- | :--- | :--- |
+| `README.md` | Tài liệu hướng dẫn tổng quan đồ án, quy trình kiểm thử & Hướng dẫn sử dụng Web Demo | Tài liệu hướng dẫn (Master Docs) |
+| `index.html` | Giao diện Web Dashboard mô phỏng an ninh IoT chạy thực tế | Ứng dụng kỹ thuật (Frontend UI) |
+| `app.js` | Động cơ JS xử lý quét CVSS, tính % tuân thủ và cô lập cổng switch | Mã nguồn logic (JS Engine) |
+| `style.css` | Tệp định dạng giao diện Glassmorphism CSS | Tệp giao diện (CSS Styling) |
+| `configs/cisco_acl_extended.cfg` | Mã CLI cấu hình Extended Access Control List trên Router Cisco | Tệp cấu hình bảo mật |
+| `rules/snort_rtsp_buffer_overflow.rules` | Bộ luật NIDS Snort phát hiện tràn bộ đệm luồng RTSP Camera | Luật giám sát xâm nhập |
+| `scripts/python_nmap_audit.py` | Mã script Python tự động rà quét port và phát hiện lỗ hổng (`python-nmap`) | Script kiểm thử tự động |
+| `policies/mqtt_mosquitto_acl.conf` | Tệp cấu hình phân quyền Mosquitto MQTT Broker ACLs & Chứng chỉ X.509 | Tệp cấu hình phân quyền |
+| `policies/aws_lambda_cedar_abac.json` | Tệp chính sách phân quyền ABAC đám mây AWS Lambda & Cedar Policy | Chính sách bảo mật Cloud |
+| `scripts/edge_crypto_aes128.cpp` | Mã nguồn mật mã mã hóa biên hạng nhẹ AES-128 cho vi điều khiển nhúng | Mã nguồn mật mã nhúng |
 
 ---
 

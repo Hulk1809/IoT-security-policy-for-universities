@@ -1,0 +1,14 @@
+{
+  "policySet": "CampusIoTAccessPolicySet",
+  "version": "1.0",
+  "policies": [
+    {
+      "id": "Policy_Lab_SmartLock_TimeWindow_ABAC",
+      "statement": "permit (principal in Role::\"Student\", action in [Action::\"UnlockDoor\"], resource in Resource::\"LabSmartLock_HW02\") when { principal.department == resource.department && context.time >= \"07:00\" && context.time <= \"21:00\" && context.network == \"Campus_VLAN30\" };"
+    },
+    {
+      "id": "Policy_ITAdmin_Full_Control",
+      "statement": "permit (principal in Role::\"IT_Admin\", action, resource);"
+    }
+  ]
+}

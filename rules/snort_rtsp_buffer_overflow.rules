@@ -1,0 +1,15 @@
+# ====================================================================
+# SNORT NIDS RULES - IOT CAMERA RTSP BUFFER OVERFLOW DETECTION
+# Project: IoT Security Policy for Universities (Topic 46)
+# Target Asset: HW-01 Camera IP Dahua (192.168.30.15)
+# Author: Vo Quoc Thang (MSSV: 231A011150)
+# ====================================================================
+
+# Rule 1: Detect RTSP Transport Header Buffer Overflow Attack on IP Camera
+alert tcp $EXTERNAL_NET any -> 192.168.30.0/24 554 (msg:"CAMPUS-IOT NIDS: RTSP Transport Header Buffer Overflow Attempt"; flow:to_server,established; content:"RTSP/1.0"; nocase; content:"Transport:"; nocase; pcre:"/Transport\x3a[^\r\n]{500,}/i"; classtype:attempted-admin; sid:10000461; rev:1;)
+
+# Rule 2: Detect Unauthorized Telnet Access Attempt on IoT Security Segment
+alert tcp $EXTERNAL_NET any -> 192.168.30.0/24 23 (msg:"CAMPUS-IOT NIDS: Unauthorized Telnet Connection Attempt to IP Camera"; flow:to_server,established; flags:S; classtype:bad-unknown; sid:10000462; rev:1;)
+
+# Rule 3: Detect Modbus TCP Unauthorized Function Code Injection on HVAC Controller
+alert tcp $EXTERNAL_NET any -> 192.168.10.45 502 (msg:"CAMPUS-IOT NIDS: Unauthorized Modbus TCP Write Command to HVAC Controller"; flow:to_server,established; content:"|00 00 00 00|"; depth:4; byte_test:1,>,15,7; classtype:attempted-dos; sid:10000463; rev:1;)
